@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+import 'items_widgets.dart';
+
+class MainWidget extends StatefulWidget {
+  const MainWidget({super.key});
+
+  @override
+  State<MainWidget> createState() => _MainWidgetState();
+}
+
+class _MainWidgetState extends State<MainWidget> {
+  int _navRailIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget selectedPage;
+    switch (_navRailIndex) {
+      case 0:
+        selectedPage = const ItemsWidget();
+        break;
+      case 1:
+        selectedPage = Placeholder();
+        break;
+      case 2:
+        selectedPage = Placeholder();
+        break;
+      case 3:
+        selectedPage = Placeholder();
+        break;
+      case 4:
+        selectedPage = Placeholder();
+        break;
+      default:
+        throw UnimplementedError('no widget for $_navRailIndex');
+    }
+
+    return Scaffold(
+      body: SafeArea(
+        child: Row(
+          children: [
+            SafeArea(
+                child: NavigationRail(
+              destinations: const <NavigationRailDestination>[
+                NavigationRailDestination(
+                    icon: Icon(Icons.account_tree), label: Text("Items")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.analytics), label: Text("Analytics")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.bolt_outlined),
+                    selectedIcon: Icon(Icons.bolt),
+                    label: Text("Power Calculator")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.construction),
+                    label: Text("Building Calculator")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.travel_explore),
+                    label: Text("Planet Coordinates")),
+              ],
+              onDestinationSelected: (value) {
+                setState(() {
+                  _navRailIndex = value;
+                });
+              },
+              selectedIndex: _navRailIndex,
+              extended: true,
+            )),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: selectedPage,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
