@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nms_auxiliary/data_types/nms_item.dart';
 import 'items_widgets.dart';
 
 class MainWidget extends StatefulWidget {
@@ -11,24 +12,26 @@ class MainWidget extends StatefulWidget {
 class _MainWidgetState extends State<MainWidget> {
   int _navRailIndex = 0;
 
+  Map<String, NMSItem> itemsMap = <String, NMSItem>{};
+
   @override
   Widget build(BuildContext context) {
     Widget selectedPage;
     switch (_navRailIndex) {
       case 0:
-        selectedPage = const ItemsWidget();
+        selectedPage = ItemsWidget(itemsMap: itemsMap);
         break;
       case 1:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       case 2:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       case 3:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       case 4:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       default:
         throw UnimplementedError('no widget for $_navRailIndex');
@@ -41,20 +44,11 @@ class _MainWidgetState extends State<MainWidget> {
             SafeArea(
                 child: NavigationRail(
               destinations: const <NavigationRailDestination>[
-                NavigationRailDestination(
-                    icon: Icon(Icons.account_tree), label: Text("Items")),
-                NavigationRailDestination(
-                    icon: Icon(Icons.analytics), label: Text("Analytics")),
-                NavigationRailDestination(
-                    icon: Icon(Icons.bolt_outlined),
-                    selectedIcon: Icon(Icons.bolt),
-                    label: Text("Power Calculator")),
-                NavigationRailDestination(
-                    icon: Icon(Icons.construction),
-                    label: Text("Building Calculator")),
-                NavigationRailDestination(
-                    icon: Icon(Icons.travel_explore),
-                    label: Text("Planet Coordinates")),
+                NavigationRailDestination(icon: Icon(Icons.account_tree), label: Text("Items")),
+                NavigationRailDestination(icon: Icon(Icons.analytics), label: Text("Analytics")),
+                NavigationRailDestination(icon: Icon(Icons.bolt_outlined), selectedIcon: Icon(Icons.bolt), label: Text("Power Calculator")),
+                NavigationRailDestination(icon: Icon(Icons.construction), label: Text("Building Calculator")),
+                NavigationRailDestination(icon: Icon(Icons.travel_explore), label: Text("Planet Coordinates")),
               ],
               onDestinationSelected: (value) {
                 setState(() {

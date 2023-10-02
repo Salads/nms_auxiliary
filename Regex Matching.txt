@@ -1,0 +1,101 @@
+// For testing purposes later on, will throw in test cases and regex matching here
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// ilink
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(?<=ilink\|).+?(?=[\|}])
+
+{{ilink|Decommissioned Circuit Board| }}
+{{ilink|Decommissioned Circuit Board|Cool Display Name}}
+{{ilink|Decommissioned Circuit Board}}
+
+{{ilink|Decommissioned Circuit Board (weird chars 25)| }}
+{{ilink|Decommissioned Circuit Board (weird chars 25)|Cool Display Name (awodianmowd)}}
+{{ilink|Decommissioned Circuit Board (weird chars 25)}}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Labeled Section Transclusion (Default MediaWiki template)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+((?<=lst:)|(?<=lst.:)).+?(?=[\|}])
+
+{{#lst:articleX|chapter1}}
+{{#lstx:articleX|chapter1}}
+{{#lstx:articleX|chapter1|replacement_text}}
+{{#lstx:articleX|chapter1|See chapter 1 in [[articleX]].}}
+{{#lsth:pagename}}
+{{#lsth:pagename|sectionX}}
+{{#lsth:pagename|sectionX|sectionY}}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Craft (Custom Template)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+{{Craft|<recipe>[|blueprint=yes]}}
+<recipe> -> <ingredient>,<amount>;[...<ingredient>,<amount>;][<output>]
+
+// In the Craft template, the output item is assumed from the page itself!
+// Regex the recipe string, then split twice to get ingredient-amount pairs
+
+(?<=Craft\|).+?(?=[\|}])
+
+{{Craft|Carbon Nanotubes,2;Salt,20;Di-hydrogen,40;|blueprint=yes}}
+{{Craft|Magnetised Ferrite,40;Ionised Cobalt,40;|blueprint=yes}}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Cook
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(?<=Cook).+?(?=})
+
+// isDotAll must be TRUE! (Matches newline with dot operator)
+// Will capture the all recipes, but not the individual parts of the recipe.
+// So, need to trim it, split it based on "|", and then we can process each individual cooking recipe.
+
+{{Cook|<recipe>[...|<recipe>]}}
+<recipe> -> <ingredient>,<amount>;[...<ingredient>,<amount>;]<output>;<time_per_unit>[%<recipe_name>]
+
+{{Cook|Iron,50;Aluminium,100;Cream,1;Ferrite Dust,1;3;4|Platinum,50;Aluminium,100;Cream,1;Ferrite Dust,1;5;6%Operation3}}
+{{Cook
+|Lumpy Brainstem,1;Lumpy Brainstem,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Processed Meat,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Smoked Meat,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Meaty Chunks,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Offal Sac,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Feline Liver,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Meaty Wings,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;ProtoSausage,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Diplo Chunks,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Scaly Meat,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Strider Sausage,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Raw Steak,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Salty Fingers,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Fiendish Roe,1;1;5%Combine And Reduce
+|Lumpy Brainstem,1;Leg Meat,1;1;5%Combine And Reduce
+}}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PoC-Refine (Custom Template)
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(?<=PoC-Refine).+?(?=})
+
+// isDotAll must be TRUE! (Matches newline with dot operator)
+// Will capture the all recipes, but not the individual parts of the recipe.
+// So, need to trim, split it based on "|", and then we can process each individual refining recipe.
+
+{{PoC-Refine|<recipe>[...|<recipe>]}}
+<recipe> -> <ingredient>,<amount>;[...<ingredient>,<amount>;]<output>;<time_per_unit>[%<recipe_name>]
+
+{{PoC-Refine|Ionised Cobalt,1;2;0.12%Deionise Mineral}}
+
+{{PoC-Refine
+| Cobalt,2;1;0.36%Ionise Mineral
+| Ionised Cobalt,1;Oxygen,2;6;0.36%Efficient Cobalt Ionisation
+| Cobalt,2;Oxygen,2;5;0.36%Efficient Cobalt Ionisation
+| Marrow Bulb,1;Pugneum,1;2;0.36%Pugneum Washing
+| Marrow Bulb,1;Oxygen,1;2;0.36%Bonded Cobalt Extraction
+| Cobalt,1;Marrow Bulb,1;2;0.36%Ionise Bulbs
+| Ionised Cobalt,1;Marrow Bulb,1;2;0.36%Ionise Bulbs
+}}

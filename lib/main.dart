@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nms_auxiliary/data_types/nms_item.dart';
 import 'main_widget.dart';
 
 void main() {
@@ -11,9 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+      theme: ThemeData(useMaterial3: true, colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
       home: const MainWidget(),
     );
   }

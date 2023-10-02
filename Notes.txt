@@ -1,0 +1,41 @@
+
+Wiki Pages for Items 
+====================================================================================================================================================
+
+https://nomanssky.fandom.com/wiki/Items
+"Items is a collective term for all the possible ingredients 
+and technologies the player can collect during their exploration 
+of the No Man's Sky universe."
+
+https://nomanssky.fandom.com/wiki/Build_Menu
+The Items page just links to this page, instead of embedding it through a reference.
+
+====================================================================================================================================================
+Information about each Item 
+====================================================================================================================================================
+
+- Salvaged Data Cost
+- Ingredients to craft (if it's craftable)
+
+====================================================================================================================================================
+Parsing wikitext
+====================================================================================================================================================
+- ilink: these will point to other pages.
+    {{ilink|name|display}}
+    {{ilink|Oxygen}} //Uses name as display
+    {{ilink|Acid| }} // Space, for icon with no text
+- lsth: These will point to other pages, that contain multiple things (more ilink)
+    {{#lsth:Stellar elements|Members}}
+- Craft: A crafting recipe. 
+    {{Craft|Carbon,50|blueprint=yes}}
+    {{Craft|Quantum Processor,1;Cryogenic Chamber,1;Iridesite,1|blueprint=yes}}
+- Cook: Made in nutrient processor 
+    {{Cook|Chewy Wires,1;1;2%NOT RECOMMENDED}}
+        | <Ingredient1>,<Quantity>;[alpha]...;<Amount Crafted per Recipe>;<Time to Craft One Recipe>
+    {{Cook|Grahberry,1;1;5%Nutrient Refining|Sweetroot,1;1;5%Nutrient Refining|Cactus Nectar,1;1;5%Nutrient Refining}}
+        Same, but has multiple recipies in a single line!
+        Recipes are separated by horizonal line '|'
+- PoC-Refine: Made in a Refiner, although it doesn't say explicity what tier Refiner is required, we can infer this by the number of ingredients.
+    Medium Refiner: 2 ingredients
+    Large Refiner: 3 ingredients
+    {{PoC-Refine|Carbon,2;1;0.18%Condense Carbon}}
